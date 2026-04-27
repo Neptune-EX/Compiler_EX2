@@ -1,404 +1,368 @@
 /**
  * @file AST.h
  * @author Yuntao Dai (d1581209858@live.com)
- * @brief 
+ * @brief
  * abstract syntax tree
- * there is a basic class AstNode, 
+ * there is a basic class AstNode,
  * and for every non-terminal lexical unit, we create a sub-class for it,
  * sub-class should implement the IR generating function for itself
  * @version 0.1
  * @date 2022-12-19
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
-
 #ifndef AST_H
 #define AST_H
 
-#include"front/token.h"
-#include"json/json.h"
-#include"ir/ir.h"
+#include "front/token.h"
+#include "json/json.h"
+#include "ir/ir.h"
 using ir::Type;
 
-#include<set>
-#include<vector>
-#include<string>
-using std::vector;
+#include <set>
+#include <vector>
+#include <string>
 using std::string;
+using std::vector;
 
-namespace frontend {
+namespace frontend
+{
 
-// enumerate for node type
-enum class NodeType {
-    TERMINAL,       // terminal lexical unit
-    COMPUINT,
-    DECL,
-    FUNCDEF,
-    CONSTDECL,
-    BTYPE,
-    CONSTDEF,
-    CONSTINITVAL,
-    VARDECL,
-    VARDEF,
-    INITVAL,
-    FUNCTYPE,
-    FUNCFPARAM,
-    FUNCFPARAMS,
-    BLOCK,
-    BLOCKITEM,
-    STMT,
-    EXP,
-    COND,
-    LVAL,
-    NUMBER,
-    PRIMARYEXP,
-    UNARYEXP,
-    UNARYOP,
-    FUNCRPARAMS,
-    MULEXP,
-    ADDEXP,
-    RELEXP,
-    EQEXP,
-    LANDEXP,
-    LOREXP,
-    CONSTEXP,
-};
-std::string toString(NodeType);
-
-// tree node basic class
-struct AstNode{
-    NodeType type;  // the node type
-    AstNode* parent;    // the parent node
-    vector<AstNode*> children;     // children of node
+    // enumerate for node type
+    enum class NodeType
+    {
+        TERMINAL, // terminal lexical unit
+        COMPUINT,
+        DECL,
+        FUNCDEF,
+        CONSTDECL,
+        BTYPE,
+        CONSTDEF,
+        CONSTINITVAL,
+        VARDECL,
+        VARDEF,
+        INITVAL,
+        FUNCTYPE,
+        FUNCFPARAM,
+        FUNCFPARAMS,
+        BLOCK,
+        BLOCKITEM,
+        STMT,
+        EXP,
+        COND,
+        LVAL,
+        NUMBER,
+        PRIMARYEXP,
+        UNARYEXP,
+        UNARYOP,
+        FUNCRPARAMS,
+        MULEXP,
+        ADDEXP,
+        RELEXP,
+        EQEXP,
+        LANDEXP,
+        LOREXP,
+        CONSTEXP,
+    };
+    std::string toString(NodeType);
 
     /**
-     * @brief constructor
+     * @brief 抽象语法树节点
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-17
      */
-    AstNode(NodeType t, AstNode* p = nullptr);
+    struct AstNode
+    {
+        NodeType type;              // 节点类型
+        AstNode *parent;            // 指向父节点的指针
+        vector<AstNode *> children; // 指向子节点的指针数组
+
+        AstNode(NodeType t, AstNode *p = nullptr);
+
+        virtual ~AstNode();
+
+        /**
+         * @brief Get the json output object
+         * @param root: a Json::Value buffer, should be initialized before calling this function
+         */
+        void get_json_output(Json::Value &root) const;
+
+        AstNode(const AstNode &) = delete;
+        AstNode &operator=(const AstNode &) = delete;
+    };
 
     /**
-     * @brief destructor
+     * @brief 终节点
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-17
      */
-    virtual ~AstNode();
+    struct Term : AstNode
+    {
+        // TODO; lab2todo21 struct Term
+        string v;    // 传递字符串值
+        Token token; // 终结点token
+        Term(Token t, AstNode *p = nullptr);
+    };
+
+    struct CompUnit : AstNode
+    {
+
+        CompUnit(AstNode *p = nullptr);
+    };
+
+    struct Decl : AstNode
+    {
+
+        Decl(AstNode *p = nullptr);
+    };
+
+    struct FuncDef : AstNode
+    {
+        string n;
+        Type t;
+
+        FuncDef(AstNode *p = nullptr);
+    };
+
+    struct ConstDecl : AstNode
+    {
+        Type t;
+
+        ConstDecl(AstNode *p = nullptr);
+    };
+
+    struct BType : AstNode
+    {
+        Type t; // 用于传递标识符类型
+
+        BType(AstNode *p = nullptr);
+    };
+
+    struct ConstDef : AstNode
+    {
+        std::string arr_name;
+
+        ConstDef(AstNode *p = nullptr);
+    };
+
+    struct ConstInitVal : AstNode
+    {
+        string v;
+        Type t;
+
+        ConstInitVal(AstNode *p = nullptr);
+    };
+
+    struct VarDecl : AstNode
+    {
+        Type t;
+
+        VarDecl(AstNode *p = nullptr);
+    };
+
+    struct VarDef : AstNode
+    {
+        std::string arr_name; // 变量名
+
+        VarDef(AstNode *p = nullptr);
+    };
+
+    struct InitVal : AstNode
+    {
+        string v; // 向下传递变量名
+        Type t;   // 向下传递变量类型
+
+        InitVal(AstNode *p = nullptr);
+    };
+
+    struct FuncType : AstNode
+    {
+        // TODO; lab2todo20 struct FuncType
+        Type t; // 用于传递函数返回值类型
+        FuncType(AstNode *p = nullptr);
+    };
+
+    struct FuncFParam : AstNode
+    {
+
+        FuncFParam(AstNode *p = nullptr);
+    };
+
+    struct FuncFParams : AstNode
+    {
+
+        FuncFParams(AstNode *p = nullptr);
+    };
+
+    struct Block : AstNode
+    {
+
+        Block(AstNode *p = nullptr);
+    };
+
+    struct BlockItem : AstNode
+    {
+
+        BlockItem(AstNode *p = nullptr);
+    };
+
+    struct Stmt : AstNode
+    {
+        // for while & break & continue, we need a vector to remember break & continue instruction
+        std::set<ir::Instruction *> jump_eow; // jump to end of while
+        std::set<ir::Instruction *> jump_bow; // jump to begin of while
+
+        Stmt(AstNode *p = nullptr);
+    };
 
     /**
-     * @brief Get the json output object
-     * @param root: a Json::Value buffer, should be initialized before calling this function
+     * @brief 表达式
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-16
      */
-    void get_json_output(Json::Value& root) const;
+    struct Exp : AstNode
+    {
+        string v; // 记录重命名后的变量名/临时变量名/常数字符串
+        Type t;   // 该表达式计算得到的类型
 
-    // rejcet copy and assignment
-    AstNode(const AstNode&) = delete;
-    AstNode& operator=(const AstNode&) = delete;
-};
+        Exp(AstNode *p = nullptr);
+    };
 
-struct Term: AstNode {
-    Token token;
+    struct Cond : AstNode
+    {
+        string v;
+        Type t;
+
+        Cond(AstNode *p = nullptr);
+    };
 
     /**
-     * @brief constructor
+     * @brief 左值表达式节点
+     * @note 左值是可寻址的变量，具有持久性，左值可以出现在赋值的左边和右边，右值只能出现在右边
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-17
      */
-    Term(Token t, AstNode* p = nullptr);
-};
+    struct LVal : AstNode
+    {
+        // TODO; lab2todo31 struct LVal
+        string v;      // 左值表达式的值
+        Type t;        // 左值表达式的类型
+        bool isPtr;    // 左值是否是指针
+        string offset; // array index, legal if t is IntPtr or FloatPtr
 
-
-struct CompUnit: AstNode {
-    /**
-     * @brief constructor
-     */
-    CompUnit(AstNode* p = nullptr);
-};
-
-struct Decl: AstNode{
-    /**
-     * @brief constructor
-     */
-    Decl(AstNode* p = nullptr);
-};
-
-struct FuncDef: AstNode{
-    string n;
-    Type t;
-    
-    /**
-     * @brief constructor
-     */
-    FuncDef(AstNode* p = nullptr);
-};
-
-struct ConstDecl: AstNode {
-    Type t;
+        LVal(AstNode *p = nullptr);
+    };
 
     /**
-     * @brief constructor
+     * @brief 数值节点
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-17
      */
-    ConstDecl(AstNode* p = nullptr);        
-};
+    struct Number : AstNode
+    {
+        string v; // 数值的字面量
+        Type t;   // 数值节点的类型 int/float
 
-struct BType: AstNode {
-    Type t;
+        Number(AstNode *p = nullptr);
+    };
 
     /**
-     * @brief constructor
+     * @brief 基本表达式节点
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-17
      */
-    BType(AstNode* p = nullptr);
-};
+    struct PrimaryExp : AstNode
+    {
+        string v;
+        Type t;
 
-struct ConstDef: AstNode{
-    std::string arr_name;
+        PrimaryExp(AstNode *p = nullptr);
+    };
 
     /**
-     * @brief constructor
+     * @brief 一元表达式
+     * @note 一次函数调用也是一元表达式
+     * @author LiHaoxuan (leehaoxuan.1234@gmail.com)
+     * @date 2024-05-17
      */
-    ConstDef(AstNode* p = nullptr);
-};
+    struct UnaryExp : AstNode
+    {
+        string v;
+        Type t;
 
-struct ConstInitVal: AstNode{
-    string v;
-    Type t;
+        UnaryExp(AstNode *p = nullptr);
+    };
 
-    /**
-     * @brief constructor
-     */
-    ConstInitVal(AstNode* p = nullptr);
-};
+    struct UnaryOp : AstNode
+    {
+        TokenType op; // 单目运算符类型
 
-struct VarDecl: AstNode{
-    Type t;
+        UnaryOp(AstNode *p = nullptr);
+    };
 
-    /**
-     * @brief constructor
-     */
-    VarDecl(AstNode* p = nullptr);
-};
+    struct FuncRParams : AstNode
+    {
 
-struct VarDef: AstNode{
-    std::string arr_name;
+        FuncRParams(AstNode *p = nullptr);
+    };
 
-    /**
-     * @brief constructor
-     */
-    VarDef(AstNode* p = nullptr);
-};
+    struct MulExp : AstNode
+    {
+        string v;
+        Type t;
 
-struct InitVal: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
+        MulExp(AstNode *p = nullptr);
+    };
 
-    /**
-     * @brief constructor
-     */
-    InitVal(AstNode* p = nullptr);
-};
+    struct AddExp : AstNode
+    {
+        string v;
+        Type t;
 
-struct FuncType: AstNode{
-    /**
-     * @brief constructor
-     */
-    FuncType(AstNode* p = nullptr);
-};
+        AddExp(AstNode *p = nullptr);
+    };
 
-struct FuncFParam: AstNode{
-    /**
-     * @brief constructor
-     */
-    FuncFParam(AstNode* p = nullptr);
-};
+    struct RelExp : AstNode
+    {
+        string v;
+        Type t = Type::Int;
 
-struct FuncFParams: AstNode{
-    /**
-     * @brief constructor
-     */
-    FuncFParams(AstNode* p = nullptr);
-};
+        RelExp(AstNode *p = nullptr);
+    };
 
-struct Block: AstNode{
-    /**
-     * @brief constructor
-     */
-    Block(AstNode* p = nullptr);
-};
+    struct EqExp : AstNode
+    {
+        string v;
+        Type t = Type::Int;
 
-struct BlockItem: AstNode{
-    /**
-     * @brief constructor
-     */
-    BlockItem(AstNode* p = nullptr);
-};
+        EqExp(AstNode *p = nullptr);
+    };
 
-struct Stmt: AstNode{
-    // for while & break & continue, we need a vector to remember break & continue instruction
-    std::set<ir::Instruction*> jump_eow;  // jump to end of while
-    std::set<ir::Instruction*> jump_bow;  // jump to begin of while
+    struct LAndExp : AstNode
+    {
+        string v;
+        Type t = Type::Int;
 
-    /**
-     * @brief constructor
-     */
-    Stmt(AstNode* p = nullptr);
-};
+        LAndExp(AstNode *p = nullptr);
+    };
 
-struct Exp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
+    struct LOrExp : AstNode
+    {
+        string v;
+        Type t = Type::Int;
 
-    /**
-     * @brief constructor
-     */
-    Exp(AstNode* p = nullptr);
-};
+        LOrExp(AstNode *p = nullptr);
+    };
 
-struct Cond: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
+    struct ConstExp : AstNode
+    {
+        string v; // 数值，一定是非负整数
+        Type t;
 
-    /**
-     * @brief constructor
-     */
-    Cond(AstNode* p = nullptr);
-};
+        ConstExp(AstNode *p = nullptr);
+    };
 
-struct LVal: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
-    int i;  // array index, legal if t is IntPtr or FloatPtr
-
-    /**
-     * @brief constructor
-     */
-    LVal(AstNode* p = nullptr);
-};
-
-struct Number: AstNode{
-    bool is_computable = true;
-    string v;
-    Type t;
-
-    /**
-     * @brief constructor
-     */
-    Number(AstNode* p = nullptr);
-};
-
-struct PrimaryExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
-    
-    /**
-     * @brief constructor
-     */
-    PrimaryExp(AstNode* p = nullptr);
-};
-
-struct UnaryExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
-
-    /**
-     * @brief constructor
-     */
-    UnaryExp(AstNode* p = nullptr);
-};
-
-struct UnaryOp: AstNode{
-    TokenType op;
-    
-    /**
-     * @brief constructor
-     */
-    UnaryOp(AstNode* p = nullptr);
-};
-
-struct FuncRParams: AstNode{
-    /**
-     * @brief constructor
-     */
-    FuncRParams(AstNode* p = nullptr);
-};
-
-struct MulExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
-
-    /**
-     * @brief constructor
-     */
-    MulExp(AstNode* p = nullptr);
-};
-
-struct AddExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t;
-
-    /**
-     * @brief constructor
-     */
-    AddExp(AstNode* p = nullptr);
-};
-
-struct RelExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t = Type::Int;
-
-    /**
-     * @brief constructor
-     */
-    RelExp(AstNode* p = nullptr);
-};
-
-struct EqExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t = Type::Int;
-
-    /**
-     * @brief constructor
-     */
-    EqExp(AstNode* p = nullptr);
-};
-
-struct LAndExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t = Type::Int;
-
-    /**
-     * @brief constructor
-     */
-    LAndExp(AstNode* p = nullptr);
-};
-
-struct LOrExp: AstNode{
-    bool is_computable = false;
-    string v;
-    Type t = Type::Int;
-
-    /**
-     * @brief constructor
-     */
-    LOrExp(AstNode* p = nullptr);
-};
-
-struct ConstExp: AstNode{
-    bool is_computable = true;
-    string v;
-    Type t ;
-
-    /**
-     * @brief constructor
-     */
-    ConstExp(AstNode* p = nullptr);
-};
-    
 } // namespace frontend
 
 #endif

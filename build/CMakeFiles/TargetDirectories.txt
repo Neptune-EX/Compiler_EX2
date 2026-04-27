@@ -1,0 +1,7 @@
+/root/compiler_EX2/build/CMakeFiles/jsoncpp.dir
+/root/compiler_EX2/build/CMakeFiles/Front.dir
+/root/compiler_EX2/build/CMakeFiles/IR.dir
+/root/compiler_EX2/build/CMakeFiles/Tools.dir
+/root/compiler_EX2/build/CMakeFiles/compiler.dir
+/root/compiler_EX2/build/CMakeFiles/edit_cache.dir
+/root/compiler_EX2/build/CMakeFiles/rebuild_cache.dir

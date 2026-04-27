@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wall CMakeFiles/compiler.dir/main.cpp.o -o /root/compiler_EX2/bin/compiler   -L/root/compiler_EX2/./lib  -Wl,-rpath,/root/compiler_EX2/./lib /root/compiler_EX2/bin/libTools.a /root/compiler_EX2/bin/libFront.a /root/compiler_EX2/bin/libIR.a /root/compiler_EX2/bin/libjsoncpp.a 
