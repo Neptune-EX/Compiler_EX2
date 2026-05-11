@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libFront.a"
-  "/root/compiler_EX2/bin/libFront.pdb"
+  "/root/compile_EX3/bin/libFront.a"
+  "/root/compile_EX3/bin/libFront.pdb"
   "CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o"
   "CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o.d"
   "CMakeFiles/Front.dir/src/front/lexical.cpp.o"

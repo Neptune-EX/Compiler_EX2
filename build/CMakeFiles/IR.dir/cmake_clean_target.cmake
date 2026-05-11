@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libIR.a"
+  "/root/compile_EX3/bin/libIR.a"
 )

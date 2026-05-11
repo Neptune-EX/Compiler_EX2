@@ -1,8 +1,8 @@
 CMakeFiles/Front.dir/src/front/syntax.cpp.o: \
- /root/compiler_EX2/src/front/syntax.cpp /usr/include/stdc-predef.h \
- /root/compiler_EX2/./include/front/syntax.h \
- /root/compiler_EX2/./include/front/abstract_syntax_tree.h \
- /root/compiler_EX2/./include/front/token.h /usr/include/c++/13/string \
+ /root/compile_EX3/src/front/syntax.cpp /usr/include/stdc-predef.h \
+ /root/compile_EX3/./include/front/syntax.h \
+ /root/compile_EX3/./include/front/abstract_syntax_tree.h \
+ /root/compile_EX3/./include/front/token.h /usr/include/c++/13/string \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -112,7 +112,7 @@ CMakeFiles/Front.dir/src/front/syntax.cpp.o: \
  /usr/include/c++/13/bits/functional_hash.h \
  /usr/include/c++/13/bits/hash_bytes.h \
  /usr/include/c++/13/bits/basic_string.tcc \
- /root/compiler_EX2/./include/json/json.h /usr/include/c++/13/cstring \
+ /root/compile_EX3/./include/json/json.h /usr/include/c++/13/cstring \
  /usr/include/string.h /usr/include/strings.h /usr/include/c++/13/memory \
  /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -179,12 +179,12 @@ CMakeFiles/Front.dir/src/front/syntax.cpp.o: \
  /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/deque \
  /usr/include/c++/13/bits/stl_deque.h /usr/include/c++/13/bits/deque.tcc \
  /usr/include/c++/13/stack /usr/include/c++/13/bits/stl_stack.h \
- /root/compiler_EX2/./include/ir/ir.h \
- /root/compiler_EX2/./include/ir/ir_operand.h \
- /root/compiler_EX2/./include/ir/ir_operator.h \
- /root/compiler_EX2/./include/ir/ir_instruction.h \
- /root/compiler_EX2/./include/ir/ir_function.h \
- /root/compiler_EX2/./include/ir/ir_program.h /usr/include/c++/13/set \
+ /root/compile_EX3/./include/ir/ir.h \
+ /root/compile_EX3/./include/ir/ir_operand.h \
+ /root/compile_EX3/./include/ir/ir_operator.h \
+ /root/compile_EX3/./include/ir/ir_instruction.h \
+ /root/compile_EX3/./include/ir/ir_function.h \
+ /root/compile_EX3/./include/ir/ir_program.h /usr/include/c++/13/set \
  /usr/include/c++/13/bits/stl_set.h \
  /usr/include/c++/13/bits/stl_multiset.h /usr/include/c++/13/iostream \
  /usr/include/c++/13/cassert /usr/include/assert.h

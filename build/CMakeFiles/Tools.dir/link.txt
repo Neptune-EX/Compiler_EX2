@@ -1,2 +1,2 @@
-/usr/bin/ar qc /root/compiler_EX2/bin/libTools.a CMakeFiles/Tools.dir/src/tools/ir_executor.cpp.o
-/usr/bin/ranlib /root/compiler_EX2/bin/libTools.a
+/usr/bin/ar qc /root/compile_EX3/bin/libTools.a CMakeFiles/Tools.dir/src/tools/ir_executor.cpp.o
+/usr/bin/ranlib /root/compile_EX3/bin/libTools.a

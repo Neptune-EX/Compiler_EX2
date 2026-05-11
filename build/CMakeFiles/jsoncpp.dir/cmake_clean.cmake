@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libjsoncpp.a"
-  "/root/compiler_EX2/bin/libjsoncpp.pdb"
+  "/root/compile_EX3/bin/libjsoncpp.a"
+  "/root/compile_EX3/bin/libjsoncpp.pdb"
   "CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o"
   "CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o.d"
 )

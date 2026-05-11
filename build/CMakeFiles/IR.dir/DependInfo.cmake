@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/root/compiler_EX2/src/ir/ir_function.cpp" "CMakeFiles/IR.dir/src/ir/ir_function.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_function.cpp.o.d"
-  "/root/compiler_EX2/src/ir/ir_instruction.cpp" "CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o.d"
-  "/root/compiler_EX2/src/ir/ir_operand.cpp" "CMakeFiles/IR.dir/src/ir/ir_operand.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_operand.cpp.o.d"
-  "/root/compiler_EX2/src/ir/ir_operator.cpp" "CMakeFiles/IR.dir/src/ir/ir_operator.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_operator.cpp.o.d"
-  "/root/compiler_EX2/src/ir/ir_program.cpp" "CMakeFiles/IR.dir/src/ir/ir_program.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_program.cpp.o.d"
-  "/root/compiler_EX2/src/ir/type.cpp" "CMakeFiles/IR.dir/src/ir/type.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/type.cpp.o.d"
+  "/root/compile_EX3/src/ir/ir_function.cpp" "CMakeFiles/IR.dir/src/ir/ir_function.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_function.cpp.o.d"
+  "/root/compile_EX3/src/ir/ir_instruction.cpp" "CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o.d"
+  "/root/compile_EX3/src/ir/ir_operand.cpp" "CMakeFiles/IR.dir/src/ir/ir_operand.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_operand.cpp.o.d"
+  "/root/compile_EX3/src/ir/ir_operator.cpp" "CMakeFiles/IR.dir/src/ir/ir_operator.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_operator.cpp.o.d"
+  "/root/compile_EX3/src/ir/ir_program.cpp" "CMakeFiles/IR.dir/src/ir/ir_program.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/ir_program.cpp.o.d"
+  "/root/compile_EX3/src/ir/type.cpp" "CMakeFiles/IR.dir/src/ir/type.cpp.o" "gcc" "CMakeFiles/IR.dir/src/ir/type.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

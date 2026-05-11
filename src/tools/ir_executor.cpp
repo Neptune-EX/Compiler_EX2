@@ -12,7 +12,6 @@
 #define IS_INT_OPERAND(operand) (operand.type == Type::Int || operand.type == Type::IntLiteral)
 #define IS_FLOAT_OPERAND(operand) (operand.type == Type::Float || operand.type == Type::FloatLiteral)
 
-
 using ir::Type;
 
 int ir::eval_int(std::string s) {
@@ -20,7 +19,7 @@ int ir::eval_int(std::string s) {
     std::cout << "\teval_int: " << s << std::endl;
 #endif
     if (s.size() >= 2 && (s.substr(0,2)=="0b" || s.substr(0,2)=="0B")) {
-        return std::stoi(s.substr(2, s.size()-2), nullptr, 2); 
+        return std::stoi(s.substr(2, s.size()-2), nullptr, 2);
     }
     else if (s.size() >= 2 && (s.substr(0,2)=="0x" || s.substr(0,2)=="0X")) {
         return std::stoi(s.substr(2, s.size()-2), nullptr, 16);
@@ -33,7 +32,7 @@ int ir::eval_int(std::string s) {
     }
 }
 
-ir::Context::Context(const ir::Function* pf): pc(0), retval_addr(nullptr), mem(std::map<std::string, Value>()), pfunc(pf) {} 
+ir::Context::Context(const ir::Function* pf): pc(0), retval_addr(nullptr), mem(std::map<std::string, Value>()), pfunc(pf) {}
 
 ir::Executor::Executor(const ir::Program* pp, std::ostream& os): out(os), program(pp), global_vars(std::map<std::string, Value>()), cur_ctx(nullptr), cxt_stack(std::stack<Context*>()) {}
 
@@ -42,7 +41,7 @@ ir::Value ir::Executor::find_src_operand(Operand op) {
     std::cout << "\tin find_src_operand(" << toString(op.type) << " " << op.name  << ")";
 #endif
     ir::Value retval;
-    
+
     if (op.type == Type::IntLiteral) {
         return {Type::Int, eval_int(op.name)};
     }
@@ -56,7 +55,7 @@ ir::Value ir::Executor::find_src_operand(Operand op) {
     if (iter == cur_ctx->mem.end()) {
         iter = global_vars.find(op.name);
         assert(iter != global_vars.end() && "can not find the arguement in current conxtext or global variables");
-    } 
+    }
     retval = iter->second;
     assert(retval.t == op.type && "type not match");
 #if (DEBUG_EXEC_DETAIL)
@@ -75,7 +74,7 @@ ir::Value ir::Executor::find_src_operand(Operand op) {
         break;
     }
 #endif
-    return retval;      
+    return retval;
 }
 
 ir::Value* ir::Executor::get_des_operand(Operand op) {
@@ -84,15 +83,15 @@ ir::Value* ir::Executor::get_des_operand(Operand op) {
 #endif
     ir::Value* retval = nullptr;
     auto iter = cur_ctx->mem.find(op.name);
-    if (iter != cur_ctx->mem.end()) {                   // find the operand in current context
+    if (iter != cur_ctx->mem.end()) {
         retval = &iter->second;
     }
     else {
         iter = global_vars.find(op.name);
-        if (iter != global_vars.end()) {               // find the operand in global variable
+        if (iter != global_vars.end()) {
             retval = &iter->second;
         }
-        else {                                              // both not, then create a new one
+        else {
 #if (DEBUG_EXEC_DETAIL)
     std::cout << ", new des (" << toString(op.type) << " " << op.name  << ")";
 #endif
@@ -121,21 +120,21 @@ ir::Value* ir::Executor::get_des_operand(Operand op) {
 }
 
 int ir::Executor::run() {
-    // init global variables
+
     for(const auto& gte: program->globalVal) {
         std::pair<std::string, Value> entry = {gte.val.name, {gte.val.type, 0}};
         if (gte.maxlen) {
             if (gte.val.type == Type::IntPtr) {
                 entry.second._val.iptr = new int[gte.maxlen];
-                // global variable need to init as 0
+
                 for (size_t i = 0; i < gte.maxlen; i++) {
                     entry.second._val.iptr[i] = 0;
                 }
-                
+
             }
             else if (gte.val.type == Type::FloatPtr) {
                 entry.second._val.fptr = new float[gte.maxlen];
-                // global variable need to init as 0
+
                 for (size_t i = 0; i < gte.maxlen; i++) {
                     entry.second._val.fptr[i] = 0;
                 }
@@ -147,7 +146,6 @@ int ir::Executor::run() {
         global_vars.insert(entry);
     }
 
-    // find main function and set cur_cxt
     for(const auto& f: program->functions) {
         if (f.name == "main") {
             cur_ctx = new Context(&f);
@@ -155,20 +153,18 @@ int ir::Executor::run() {
         }
     }
 
-    // check cur_ctx valid
     if (!cur_ctx) {
         std::cout << "no main function";
         exit(-1);
     }
 
-    // run
     Value main_func_retval;
     cur_ctx->retval_addr = &main_func_retval;
     cxt_stack.push(cur_ctx);
     while (cur_ctx) {
         exec_ir();
     }
-    
+
     return main_func_retval._val.ival;
 }
 
@@ -200,13 +196,13 @@ bool ir::Executor::exec_ir(size_t n) {
                         break;
                     }
                 }
-                // switch context
-                if (cxt_stack.size()) {        // in main function return
+
+                if (cxt_stack.size()) {
                     cur_ctx = cxt_stack.top();
                     cxt_stack.pop();
                 }
                 else {
-                    delete cur_ctx;     // FIXME destructor for Context
+                    delete cur_ctx;
                     cur_ctx = nullptr;
                 }
             } break;
@@ -230,35 +226,32 @@ bool ir::Executor::exec_ir(size_t n) {
 #endif
             } break;
             case Operator::call: {
-                auto callinst = dynamic_cast<CallInst*>(inst); 
+                auto callinst = dynamic_cast<CallInst*>(inst);
                 auto fn = callinst->op1.name;
 
-                // lib functions
                 Value libfunc_retval;
                 if (exec_lib_function(callinst, &libfunc_retval)) {
                     if (callinst->des.type != Type::null) {
-                        *get_des_operand(inst->des) = libfunc_retval; 
+                        *get_des_operand(inst->des) = libfunc_retval;
                     }
                     cur_ctx->pc++;
                     break;
                 }
 
-                // ir::Function
                 Context* cxt = nullptr;
                 for(auto& f: program->functions) {
                     if (f.name == fn) {
                         cxt = new Context(&f);
                     }
-                } 
+                }
 
-                // return type checking
                 assert(cxt->pfunc->returnType == Type::null || inst->des.type == cxt->pfunc->returnType);
                 if (cxt->pfunc->returnType != Type::null) {
                     cxt->retval_addr = get_des_operand(inst->des);
                 }
 
                 if (cxt) {
-                    // type checking
+
                     for (size_t i = 0; i < cxt->pfunc->ParameterList.size(); i++) {
                         auto para = cxt->pfunc->ParameterList[i];
                         assert(i < callinst->argumentList.size() && "callinst's arguement list should match function's parameter list");
@@ -271,19 +264,19 @@ bool ir::Executor::exec_ir(size_t n) {
                         case Type::Float:
                         case Type::FloatLiteral:
                             assert(para.type == Type::Float);
-                            break;                        
-                        // pointers
+                            break;
+
                         default:
                             assert(arg.type == para.type);
                             break;
                         }
-                        // pass arguement into new context
+
                         cxt->mem.insert({para.name, find_src_operand(arg)});
                     }
                     cur_ctx->pc++;
                     cxt_stack.push(cur_ctx);
                     cur_ctx = cxt;
-                } 
+                }
                 else {
                     assert(0 && "could not find the function in ir::Program");
                 }
@@ -296,7 +289,7 @@ bool ir::Executor::exec_ir(size_t n) {
                 else {
                     assert(0 && "in Operator::alloc, op1 should be integer");
                 }
-                
+
                 if (inst->des.type == Type::IntPtr) {
                     get_des_operand(inst->des)->_val.iptr = new int[size];
                 }
@@ -364,7 +357,7 @@ bool ir::Executor::exec_ir(size_t n) {
                     assert(0 && "in Operator::getptr, op1 should be a pointer and des should be the matched type");
                 }
             } break;
-            case Operator::mov: 
+            case Operator::mov:
             case Operator::def: {
                 assert(IS_INT_OPERAND(inst->des));
                 auto pvalue = get_des_operand(inst->des);
@@ -393,7 +386,7 @@ bool ir::Executor::exec_ir(size_t n) {
                     std::cout << "\tdes operand(" << toString(inst->des.type) << " " << inst->des.name  << "), value = " << pvalue->_val.ival << std::endl;
 #endif
             } break;
-            case Operator::fdef: 
+            case Operator::fdef:
             case Operator::fmov: {
                 assert(inst->des.type == Type::Float);
                 auto pvalue = get_des_operand(inst->des);
@@ -433,8 +426,8 @@ bool ir::Executor::exec_ir(size_t n) {
                     std::cout << "\tdes operand(" << toString(inst->des.type) << " " << inst->des.name  << "), value = " << pvalue->_val.ival << std::endl;
 #endif
             } break;
-            // 2 int operand
-            case Operator::add: 
+
+            case Operator::add:
             case Operator::sub:
             case Operator::mul:
             case Operator::div:
@@ -445,11 +438,11 @@ bool ir::Executor::exec_ir(size_t n) {
             case Operator::geq:
             case Operator::eq:
             case Operator::neq:
-            case Operator::_and: 
-            case Operator::_or: 
+            case Operator::_and:
+            case Operator::_or:
             {
                 assert(inst->des.type == Type::Int);
-                // op1
+
                 int v1;
                 if (IS_INT_OPERAND(inst->op1)) {
                     v1 = find_src_operand(inst->op1)._val.ival;
@@ -457,7 +450,7 @@ bool ir::Executor::exec_ir(size_t n) {
                 else {
                     assert(0 && "type of op1 is not Type::Int or Type::IntLiteral");
                 }
-                // op2
+
                 int v2;
                 if (IS_INT_OPERAND(inst->op2)) {
                     v2 = find_src_operand(inst->op2)._val.ival;
@@ -469,43 +462,43 @@ bool ir::Executor::exec_ir(size_t n) {
                 switch (inst->op) {
                     case Operator::add:
                         pvalue->_val.ival = v1 + v2;
-                    break; 
+                    break;
                     case Operator::sub:
                         pvalue->_val.ival = v1 - v2;
-                    break; 
+                    break;
                     case Operator::mul:
                         pvalue->_val.ival = v1 * v2;
-                    break; 
+                    break;
                     case Operator::div:
                         pvalue->_val.ival = v1 / v2;
-                    break; 
+                    break;
                     case Operator::mod:
                         pvalue->_val.ival = v1 % v2;
-                    break; 
+                    break;
                     case Operator::lss:
                         pvalue->_val.ival = (v1 < v2);
-                    break; 
+                    break;
                     case Operator::leq:
                         pvalue->_val.ival = (v1 <= v2);
-                    break; 
+                    break;
                     case Operator::gtr:
                         pvalue->_val.ival = (v1 > v2);
-                    break; 
+                    break;
                     case Operator::geq:
                         pvalue->_val.ival = (v1 >= v2);
-                    break; 
+                    break;
                     case Operator::eq:
                         pvalue->_val.ival = (v1 == v2);
-                    break; 
+                    break;
                     case Operator::neq:
                         pvalue->_val.ival = (v1 != v2);
-                    break; 
+                    break;
                     case Operator::_and:
                         pvalue->_val.ival = (v1 != 0 && v2 != 0);
-                    break; 
+                    break;
                     case Operator::_or:
                         pvalue->_val.ival = (v1 != 0 || v2 != 0);
-                    break; 
+                    break;
                     default:
                         assert(0 && "should not reach hear!");
                 }
@@ -513,7 +506,7 @@ bool ir::Executor::exec_ir(size_t n) {
                     std::cout << "\tdes operand(" << toString(inst->des.type) << " " << inst->des.name  << "), value = " << pvalue->_val.ival << std::endl;
 #endif
             } break;
-            case Operator::addi: 
+            case Operator::addi:
             case Operator::subi:
             {
                 int v1 = find_src_operand(inst->op1)._val.ival;
@@ -534,7 +527,7 @@ bool ir::Executor::exec_ir(size_t n) {
             case Operator::fneq:
             {
                 assert(inst->des.type == Type::Float);
-                // op1
+
                 float v1;
                 if (IS_FLOAT_OPERAND(inst->op1)) {
                     v1 = find_src_operand(inst->op1)._val.fval;
@@ -542,7 +535,7 @@ bool ir::Executor::exec_ir(size_t n) {
                 else {
                     assert(0 && "type of op1 is not Type::Int or Type::IntLiteral");
                 }
-                // op2
+
                 float v2;
                 if (IS_FLOAT_OPERAND(inst->op2)) {
                     v2 = find_src_operand(inst->op2)._val.fval;
@@ -554,34 +547,34 @@ bool ir::Executor::exec_ir(size_t n) {
                 switch (inst->op) {
                     case Operator::fadd:
                         pvalue->_val.fval = v1 + v2;
-                    break; 
+                    break;
                     case Operator::fsub:
                         pvalue->_val.fval = v1 - v2;
-                    break; 
+                    break;
                     case Operator::fmul:
                         pvalue->_val.fval = v1 * v2;
-                    break; 
+                    break;
                     case Operator::fdiv:
                         pvalue->_val.fval = v1 / v2;
-                    break; 
+                    break;
                     case Operator::flss:
                         pvalue->_val.fval = (v1 < v2);
-                    break; 
+                    break;
                     case Operator::fleq:
                         pvalue->_val.fval = (v1 <= v2);
-                    break; 
+                    break;
                     case Operator::fgtr:
                         pvalue->_val.fval = (v1 > v2);
-                    break; 
+                    break;
                     case Operator::fgeq:
                         pvalue->_val.fval = (v1 >= v2);
-                    break; 
+                    break;
                     case Operator::feq:
                         pvalue->_val.fval = (v1 == v2);
-                    break; 
+                    break;
                     case Operator::fneq:
                         pvalue->_val.fval = (v1 != v2);
-                    break; 
+                    break;
                     default:
                         assert(0 && "should not reach hear!");
                 }
@@ -591,10 +584,9 @@ bool ir::Executor::exec_ir(size_t n) {
             } break;
         case Operator::__unuse__:
             break;
-        // default:
-        //     break;
+
         }
-        // increase pc
+
         switch (inst->op) {
         case Operator::_return:
         case Operator::call:
@@ -632,7 +624,7 @@ bool ir::Executor::exec_lib_function(const ir::CallInst* callinst, Value* p_retv
             auto arr = find_src_operand(callinst->argumentList[0]);
             assert(arr.t == Type::FloatPtr && "argument do not match getfarray(float*)");
             p_retval->_val.ival = getfarray(arr._val.fptr);
-        } 
+        }
         else {
             assert(0 && "lib function returnType do not match des.type");
         }
@@ -678,21 +670,19 @@ bool ir::Executor::exec_lib_function(const ir::CallInst* callinst, Value* p_retv
     return true;
 }
 
-
 FILE* ir::reopen_output_file = nullptr;
 FILE* ir::reopen_input_file = nullptr;
 
-/* Input & output functions */
 int getint() {
-    int t; 
-    fscanf(ir::reopen_input_file, "%d",&t); 
-    return t; 
+    int t;
+    fscanf(ir::reopen_input_file, "%d",&t);
+    return t;
 }
 
 int getch() {
-    char c; 
-    fscanf(ir::reopen_input_file, "%c",&c); 
-    return (int)c; 
+    char c;
+    fscanf(ir::reopen_input_file, "%c",&c);
+    return (int)c;
 }
 
 float getfloat(){
@@ -717,7 +707,7 @@ int getfarray(float a[]) {
     return n;
 }
 
-void putint(int a) { 
+void putint(int a) {
     fprintf(ir::reopen_output_file, "%d",a);
 }
 

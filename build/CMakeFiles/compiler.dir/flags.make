@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/root/compiler_EX2/./include
+CXX_INCLUDES = -I/root/compile_EX3/./include
 
 CXX_FLAGS = -Wall -std=gnu++14
 

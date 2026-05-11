@@ -1,5 +1,5 @@
-CMakeFiles/IR.dir/src/ir/type.cpp.o: /root/compiler_EX2/src/ir/type.cpp \
- /usr/include/stdc-predef.h /root/compiler_EX2/./include/ir/ir_operand.h \
+CMakeFiles/IR.dir/src/ir/type.cpp.o: /root/compile_EX3/src/ir/type.cpp \
+ /usr/include/stdc-predef.h /root/compile_EX3/./include/ir/ir_operand.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \

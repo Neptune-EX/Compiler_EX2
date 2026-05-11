@@ -1,6 +1,6 @@
 CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o: \
- /root/compiler_EX2/src/third_party/jsoncpp/jsoncpp.cpp \
- /usr/include/stdc-predef.h /root/compiler_EX2/./include/json/json.h \
+ /root/compile_EX3/src/third_party/jsoncpp/jsoncpp.cpp \
+ /usr/include/stdc-predef.h /root/compile_EX3/./include/json/json.h \
  /usr/include/c++/13/cstring \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \

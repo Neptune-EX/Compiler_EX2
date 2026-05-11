@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libTools.a"
+  "/root/compile_EX3/bin/libTools.a"
 )

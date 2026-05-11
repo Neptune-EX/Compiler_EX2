@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/root/compiler_EX2/src/front/abstract_syntax_tree.cpp" "CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o.d"
-  "/root/compiler_EX2/src/front/lexical.cpp" "CMakeFiles/Front.dir/src/front/lexical.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/lexical.cpp.o.d"
-  "/root/compiler_EX2/src/front/semantic.cpp" "CMakeFiles/Front.dir/src/front/semantic.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/semantic.cpp.o.d"
-  "/root/compiler_EX2/src/front/syntax.cpp" "CMakeFiles/Front.dir/src/front/syntax.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/syntax.cpp.o.d"
-  "/root/compiler_EX2/src/front/token.cpp" "CMakeFiles/Front.dir/src/front/token.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/token.cpp.o.d"
+  "/root/compile_EX3/src/front/abstract_syntax_tree.cpp" "CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o.d"
+  "/root/compile_EX3/src/front/lexical.cpp" "CMakeFiles/Front.dir/src/front/lexical.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/lexical.cpp.o.d"
+  "/root/compile_EX3/src/front/semantic.cpp" "CMakeFiles/Front.dir/src/front/semantic.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/semantic.cpp.o.d"
+  "/root/compile_EX3/src/front/syntax.cpp" "CMakeFiles/Front.dir/src/front/syntax.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/syntax.cpp.o.d"
+  "/root/compile_EX3/src/front/token.cpp" "CMakeFiles/Front.dir/src/front/token.cpp.o" "gcc" "CMakeFiles/Front.dir/src/front/token.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

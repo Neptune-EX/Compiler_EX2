@@ -24,6 +24,14 @@
 执行：
 1. cd /bin
 2. compiler <src_filename> [-step] -o <output_filename> [-O1]
+
+    compiler <src_filename> [-s0] -o <output_filename> [-O1]
+    compiler <src_filename> [-s1] -o <output_filename> [-O1]
+    compiler <src_filename> [-s2] -o <output_filename> [-O1]
+    compiler <src_filename> [-e] -o <output_filename> [-O1]
+    compiler <src_filename> [-S] -o <output_filename> [-O1]
+
+
     -step: 支持以下几种输入
         s0: 词法结果 token 串
         s1: 语法分析结果语法树, 以 json 格式输出

@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libjsoncpp.a"
+  "/root/compile_EX3/bin/libjsoncpp.a"
 )

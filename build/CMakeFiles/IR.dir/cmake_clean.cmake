@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libIR.a"
-  "/root/compiler_EX2/bin/libIR.pdb"
+  "/root/compile_EX3/bin/libIR.a"
+  "/root/compile_EX3/bin/libIR.pdb"
   "CMakeFiles/IR.dir/src/ir/ir_function.cpp.o"
   "CMakeFiles/IR.dir/src/ir/ir_function.cpp.o.d"
   "CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o"

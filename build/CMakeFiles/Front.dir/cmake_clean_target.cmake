@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/root/compiler_EX2/bin/libFront.a"
+  "/root/compile_EX3/bin/libFront.a"
 )

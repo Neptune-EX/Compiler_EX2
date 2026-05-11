@@ -1,7 +1,7 @@
 CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o: \
- /root/compiler_EX2/src/ir/ir_instruction.cpp /usr/include/stdc-predef.h \
- /root/compiler_EX2/./include/ir/ir_instruction.h \
- /root/compiler_EX2/./include/ir/ir_operand.h /usr/include/c++/13/string \
+ /root/compile_EX3/src/ir/ir_instruction.cpp /usr/include/stdc-predef.h \
+ /root/compile_EX3/./include/ir/ir_instruction.h \
+ /root/compile_EX3/./include/ir/ir_operand.h /usr/include/c++/13/string \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -111,7 +111,7 @@ CMakeFiles/IR.dir/src/ir/ir_instruction.cpp.o: \
  /usr/include/c++/13/bits/functional_hash.h \
  /usr/include/c++/13/bits/hash_bytes.h \
  /usr/include/c++/13/bits/basic_string.tcc \
- /root/compiler_EX2/./include/ir/ir_operator.h /usr/include/c++/13/vector \
+ /root/compile_EX3/./include/ir/ir_operator.h /usr/include/c++/13/vector \
  /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \

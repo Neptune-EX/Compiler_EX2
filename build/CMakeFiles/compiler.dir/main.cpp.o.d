@@ -1,6 +1,6 @@
-CMakeFiles/compiler.dir/main.cpp.o: /root/compiler_EX2/main.cpp \
- /usr/include/stdc-predef.h /root/compiler_EX2/./include/front/lexical.h \
- /root/compiler_EX2/./include/front/token.h /usr/include/c++/13/string \
+CMakeFiles/compiler.dir/main.cpp.o: /root/compile_EX3/main.cpp \
+ /usr/include/stdc-predef.h /root/compile_EX3/./include/front/lexical.h \
+ /root/compile_EX3/./include/front/token.h /usr/include/c++/13/string \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -158,9 +158,9 @@ CMakeFiles/compiler.dir/main.cpp.o: /root/compiler_EX2/main.cpp \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
  /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/iostream \
- /root/compiler_EX2/./include/front/syntax.h \
- /root/compiler_EX2/./include/front/abstract_syntax_tree.h \
- /root/compiler_EX2/./include/json/json.h /usr/include/c++/13/cstring \
+ /root/compile_EX3/./include/front/syntax.h \
+ /root/compile_EX3/./include/front/abstract_syntax_tree.h \
+ /root/compile_EX3/./include/json/json.h /usr/include/c++/13/cstring \
  /usr/include/string.h /usr/include/strings.h /usr/include/c++/13/memory \
  /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
@@ -185,12 +185,12 @@ CMakeFiles/compiler.dir/main.cpp.o: /root/compiler_EX2/main.cpp \
  /usr/include/c++/13/bits/stl_multimap.h /usr/include/c++/13/deque \
  /usr/include/c++/13/bits/stl_deque.h /usr/include/c++/13/bits/deque.tcc \
  /usr/include/c++/13/stack /usr/include/c++/13/bits/stl_stack.h \
- /root/compiler_EX2/./include/ir/ir.h \
- /root/compiler_EX2/./include/ir/ir_operand.h \
- /root/compiler_EX2/./include/ir/ir_operator.h \
- /root/compiler_EX2/./include/ir/ir_instruction.h \
- /root/compiler_EX2/./include/ir/ir_function.h \
- /root/compiler_EX2/./include/ir/ir_program.h \
- /root/compiler_EX2/./include/front/semantic.h \
- /root/compiler_EX2/./include/tools/ir_executor.h \
+ /root/compile_EX3/./include/ir/ir.h \
+ /root/compile_EX3/./include/ir/ir_operand.h \
+ /root/compile_EX3/./include/ir/ir_operator.h \
+ /root/compile_EX3/./include/ir/ir_instruction.h \
+ /root/compile_EX3/./include/ir/ir_function.h \
+ /root/compile_EX3/./include/ir/ir_program.h \
+ /root/compile_EX3/./include/front/semantic.h \
+ /root/compile_EX3/./include/tools/ir_executor.h \
  /usr/include/c++/13/cassert /usr/include/assert.h
